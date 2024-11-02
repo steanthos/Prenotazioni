@@ -13,7 +13,8 @@
             Console.WriteLine("3. Cerca noleggio per nome cliente");
             Console.WriteLine("4. Modifica durata noleggio");
             Console.WriteLine("5. Termina noleggio");
-            Console.WriteLine("6. Esci e salva");
+            Console.WriteLine("6. Visualizza statistiche");
+            Console.WriteLine("7. Esci e salva");
             Console.WriteLine("-------------");
             Console.Write("Scelta: ");
             string scelta = Console.ReadLine();
@@ -26,7 +27,7 @@
 
                     Console.Write("Inserisci il modello dell'auto: ");
                     string modelloAuto = Console.ReadLine();
-
+                    
                     int durataGiorni;
                     do
                     {
@@ -76,6 +77,10 @@
                     break;
 
                 case "6":
+                    sistemaNoleggio.VisualizzaStatistiche();
+                    break;
+
+                case "7":
                     sistemaNoleggio.SalvaNoleggi();
                     Console.WriteLine("Salvataggio ed uscita dal programma.");
                     return;

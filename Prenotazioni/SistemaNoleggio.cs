@@ -34,7 +34,6 @@ public class SistemaNoleggio
             noleggio.MostraDettagli();
         }
     }
-
     public bool CercaNoleggio(string nomeCliente)
     {
         var noleggioTrovato = noleggi.Find(n => n.NomeCliente.Equals(nomeCliente, StringComparison.OrdinalIgnoreCase) && n.Attivo);
@@ -81,7 +80,6 @@ public class SistemaNoleggio
             Console.WriteLine("Nessun noleggio trovato");
         }
     }
-
     public void SalvaNoleggi()
     {
         var options = new JsonSerializerOptions { WriteIndented = true };
@@ -104,5 +102,26 @@ public class SistemaNoleggio
             Console.WriteLine("Nessun file trovato, verrà creato un nuovo database di noleggi");
         }
     }
-}
 
+    public void VisualizzaStatistiche()
+    {
+        int totaleNoleggi = noleggi.Count();
+        int noleggiAttivi = noleggi.Count(n => n.Attivo);
+        int noleggiTerminati = totaleNoleggi - noleggiAttivi;
+
+        //Percentuali
+        double percentualeAttivi = totaleNoleggi > 0 ? (noleggiAttivi * 100.0) / totaleNoleggi : 0;
+        double percentualeTerminati = totaleNoleggi > 0 ? (noleggiTerminati * 100.0) / totaleNoleggi : 0;
+
+        // Durata media dei noleggi attivi
+        double durataMediaAttivi = totaleNoleggi > 0
+             ? noleggi.Where(n => n.Attivo).Average(n => n.DurataGiorni)
+             : 0;
+
+        Console.WriteLine("Statistiche sui noleggi:");
+        Console.WriteLine($"- Numero totale di noleggi: {totaleNoleggi}");
+        Console.WriteLine($"- Numero di noleggi attivi: {noleggiAttivi} ({percentualeAttivi:F2}%)");
+        Console.WriteLine($"- Numero di noleggi terminati: {noleggiTerminati} ({percentualeTerminati:F2}%)");
+        Console.WriteLine($"- Durata media dei noleggi attivi: {durataMediaAttivi:F2} giorni");
+    }
+}
